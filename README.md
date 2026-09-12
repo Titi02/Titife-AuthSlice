@@ -106,3 +106,4 @@ prisma/           # Schema and migrations
 jobs/             # Scheduled cleanup scripts
 ```
 "# Titife-AuthSlice" 
+"# Titife-AuthSlice" 
