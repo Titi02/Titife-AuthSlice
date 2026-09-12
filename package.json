@@ -1,0 +1,39 @@
+{
+  "name": "auth-module-temp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "cleanup:unverified-accounts": "tsx jobs/cleanup-unverified-accounts.ts",
+    "cleanup:verification-codes": "tsx jobs/cleanup-expired-verification-codes.ts",
+    "cleanup:sessions": "tsx jobs/cleanup-expired-sessions.ts",
+    "cleanup:rate-limits": "tsx jobs/cleanup-expired-rate-limits.ts",
+    "cleanup:password-reset-tokens": "tsx jobs/cleanup-expired-password-reset-tokens.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^6.19.3",
+    "@prisma/client": "^6.19.3",
+    "argon2": "^0.45.1",
+    "next": "16.3.4",
+    "nodemailer": "^10.0.8",
+    "pg": "^8.23.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "^4.6.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.4",
+    "prisma": "^6.19.3",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.13",
+    "typescript": "^5"
+  }
+}
