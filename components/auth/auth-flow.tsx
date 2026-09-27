@@ -33,6 +33,8 @@ export function AuthFlow({ initialScreen = "signup" }: AuthFlowProps) {
     return (
       <AuthScreen
         title="Create Account"
+        titleClassName="text-[var(--color-primary)]"
+        subtitle="Create your account to get started."
         footer={{
           preface: "Already have an account?",
           label: "Sign in",
@@ -53,11 +55,10 @@ export function AuthFlow({ initialScreen = "signup" }: AuthFlowProps) {
     return (
       <AuthScreen
         title="Forgot Password"
+        titleClassName="text-[var(--color-primary)]"
+        subtitle="Enter your email address and we&apos;ll send you a password reset code."
         footer={{ label: "Back to sign in", onClick: () => setScreen("signin") }}
       >
-        <p className="text-sm text-center">
-          Enter your email address and we&apos;ll send you a password reset code.
-        </p>
         <ForgotPasswordForm
           initialEmail={forgotEmail}
           onCodeSent={(email) => {
@@ -75,15 +76,17 @@ export function AuthFlow({ initialScreen = "signup" }: AuthFlowProps) {
       return (
         <AuthScreen
           title="Invalid Request"
+          titleClassName="text-[var(--color-primary)]"
+          subtitle="Please start the password reset again."
           footer={{ label: "Back to sign in", onClick: () => setScreen("signin") }}
-        >
-          <p className="text-center">Please start the password reset again.</p>
-        </AuthScreen>
+        />
       );
     }
     return (
       <AuthScreen
         title="Enter Reset Code"
+        titleClassName="text-[var(--color-primary)]"
+        subtitle={`A reset code was sent to ${resetEmail}`}
         footer={{ label: "Back to sign in", onClick: () => setScreen("signin") }}
       >
         <ResetCodeForm
@@ -102,14 +105,17 @@ export function AuthFlow({ initialScreen = "signup" }: AuthFlowProps) {
       return (
         <AuthScreen
           title="Invalid Request"
+          titleClassName="text-[var(--color-primary)]"
+          subtitle="Please start the password reset again."
           footer={{ label: "Back to sign in", onClick: () => setScreen("signin") }}
-        >
-          <p className="text-center">Please start the password reset again.</p>
-        </AuthScreen>
+        />
       );
     }
     return (
-      <AuthScreen title="Reset Password">
+      <AuthScreen
+        title="Reset Password"
+        titleClassName="text-[var(--color-primary)]"
+      >
         <ResetPasswordForm
           email={resetEmail}
           code={resetCode}
@@ -127,15 +133,19 @@ export function AuthFlow({ initialScreen = "signup" }: AuthFlowProps) {
   if (screen === "verify-email") {
     if (!verifyEmail) {
       return (
-        <AuthScreen title="Verify Email">
-          <p className="text-center">
-            No email address provided. Please sign up again.
-          </p>
-        </AuthScreen>
+        <AuthScreen
+          title="Verify Email"
+          titleClassName="text-[var(--color-primary)]"
+          subtitle="No email address provided. Please sign up again."
+        />
       );
     }
     return (
-      <AuthScreen title="Verify Email">
+      <AuthScreen
+        title="Verify Email"
+        titleClassName="text-[var(--color-primary)]"
+        subtitle={`A verification code was sent to ${verifyEmail}`}
+      >
         <VerifyEmailForm email={verifyEmail} />
       </AuthScreen>
     );
@@ -144,6 +154,8 @@ export function AuthFlow({ initialScreen = "signup" }: AuthFlowProps) {
   return (
     <AuthScreen
       title="Sign In"
+      titleClassName="text-[var(--color-primary)]"
+      subtitle="Sign in to your account to continue."
       footer={{
         preface: "Don't have an account?",
         label: "Sign up",

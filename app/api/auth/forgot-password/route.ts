@@ -54,11 +54,17 @@ export async function POST(request: NextRequest) {
   // PRD §7.3: record the attempt before sending so a failed send still counts.
   await recordRateLimit(RATE_LIMITS.forgotPassword, ip, user.id);
 
-  await sendEmail({
-    to: email,
-    subject: "Reset your password",
-    text: `Your password reset code is: ${code}\n\nThis code expires in 15 minutes.`,
-  });
+  try {
+    await sendEmail({
+      to: email,
+      subject: "Reset your password",
+      text: `Your password reset code is: ${code}\n\nThis code expires in 15 minutes.`,
+    });
+  } catch (error) {
+    // PRD §5.3: an SMTP failure must not 500 or reveal account state; the reset
+    // code is already persisted, so the user can retry later.
+    console.error("Failed to send reset email:", error);
+  }
 
   return NextResponse.json({ ok: true, message: GENERIC_MESSAGE });
 }

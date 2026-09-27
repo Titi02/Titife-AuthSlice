@@ -119,10 +119,6 @@ export function VerifyEmailForm({ email }: VerifyEmailFormProps) {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-center">
-        A verification code was sent to{" "}
-        <span className="font-medium">{email}</span>
-      </p>
       {snackbarVisible && (
         <div
           role="status"

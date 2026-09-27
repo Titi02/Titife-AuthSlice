@@ -89,11 +89,17 @@ export async function POST(request: NextRequest) {
   // PRD §7.3: record the attempt before sending so a failed send still counts.
   await recordRateLimit(RATE_LIMITS.signup, ip);
 
-  await sendEmail({
-    to: email,
-    subject: "Verify your email address",
-    text: code,
-  });
+  try {
+    await sendEmail({
+      to: email,
+      subject: "Verify your email address",
+      text: code,
+    });
+  } catch (error) {
+    // PRD §5.1/§7.3: an SMTP failure must not 500 or reveal account state. The
+    // account and code are already persisted, so the user can retry via resend.
+    console.error("Failed to send verification email:", error);
+  }
 
   return NextResponse.json({
     ok: true,

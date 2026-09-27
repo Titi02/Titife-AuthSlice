@@ -115,3 +115,37 @@ Schema lives in `prisma/schema.prisma`, using the `citext` extension. Five table
 # 8. If I Built This Again
 
 I'd lock the security invariants into the data model before writing any UI — hash the session token at rest, enforce email uniqueness with `citext`, and keep lockout to one mechanism. Most of the rework here came from a weak default shipping first and being corrected later, and each fix touched the schema plus every code path using it.
+
+# 9. Audit Evidence
+
+Screenshots from the manual authentication audit.
+
+### Step 1 — Password hash at rest
+
+The `passwordHash` column stores an argon2id hash, never plaintext.
+
+![Argon2id password hash stored in the database](docs/images/01-password-hash-evidence.png)
+
+### Step 2 — Direct signup via curl
+
+The signup endpoint works end-to-end without the UI, proving the API is a complete interface on its own.
+
+![Direct signup request and response via curl](docs/images/02-direct-signup-curl.png)
+
+### Step 3 — Rate limiting
+
+Repeated attempts are throttled by the Postgres-backed rate limiter.
+
+![Rate limit enforced on repeated attempts](docs/images/03-rate-limit-evidence.png)
+
+### Step 4 — Verification code before expiry
+
+A valid, unexpired verification code is accepted.
+
+![Verification code accepted before expiry](docs/images/04-verification-code-before-expiry.png)
+
+### Step 5 — Verification code after expiry
+
+An expired verification code is rejected, even if it was never used.
+
+![Verification code rejected after expiry](docs/images/05-verification-code-after-expiry.png)

@@ -10,15 +10,37 @@ interface AuthScreenFooter {
 
 interface AuthScreenProps {
   title: string;
+  titleClassName?: string;
+  subtitle?: string;
   footer?: AuthScreenFooter;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
-export function AuthScreen({ title, footer, children }: AuthScreenProps) {
+export function AuthScreen({
+  title,
+  titleClassName,
+  subtitle,
+  footer,
+  children,
+}: AuthScreenProps) {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md space-y-6">
-        <h1 className="text-2xl font-semibold text-center">{title}</h1>
+        <div className="space-y-2">
+          <h1
+            className={`text-2xl font-semibold text-center${titleClassName ? ` ${titleClassName}` : ""}`}
+          >
+            {title}
+          </h1>
+          {subtitle ? (
+            <p
+              className="text-sm text-center"
+              style={{ color: "var(--color-on-surface-variant-c)" }}
+            >
+              {subtitle}
+            </p>
+          ) : null}
+        </div>
         {children}
         {footer ? (
           <p className="text-center text-sm">

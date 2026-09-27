@@ -96,9 +96,6 @@ export function ResetCodeForm({ email, onVerified }: ResetCodeFormProps) {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-center">
-        A reset code was sent to <span className="font-medium">{email}</span>
-      </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <FormError message={error} />
         <Input
